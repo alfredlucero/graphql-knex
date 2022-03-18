@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+# Defines how to run an app in the cluster but doesn't make it available to other apps
+kind: Deployment
+metadata:
+  name: graphql-knex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graphql-knex
+  template:
+    metadata:
+      # Label for pods that wrap container
+      labels:
+        app: graphql-knex
+    spec:
+      containers:
+        # eval $(minikube -p minikube docker-env) before building the image again to save it in the Minikube Docker registry
+        - name: graphql-knex
+          image: graphql-knex
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SECRET_ENV_VAR
+              value: secret_env_var_value
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphql-knex
+spec:
+  # Selects the pods to expose according to their labels
+  selector:
+    app: graphql-knex
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer
