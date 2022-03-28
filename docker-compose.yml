@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  mysql:
+    # mysql -h mysql -uroot
+    # mysql> use db_name;
+    # mysql> source backup-file.sql;
+    # mysql -u username -p database_name < file.sql
+    hostname: mysql
+    image: percona:5.6.40
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - .:/workdir
+    ports:
+      - "3306:3306"
