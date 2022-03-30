@@ -2,6 +2,12 @@
 ### Do not make changes to this file directly
 
 
+type PageInfo {
+  afterKey: Int
+  beforeKey: Int
+  limit: Int
+}
+
 type ParentAccount {
   createdAt: String
   package: String!
@@ -16,7 +22,32 @@ type ParentAccountMinimal {
   username: String!
 }
 
+type ParentAccountsSearch {
+  result: ParentAccountsSearchResult!
+}
+
+type ParentAccountsSearchData {
+  createdAt: String
+  userId: Int!
+  username: String!
+}
+
+input ParentAccountsSearchInput {
+  afterKey: Int
+  beforeKey: Int
+  email: String
+  limit: Int
+  userId: Int
+  username: String
+}
+
+type ParentAccountsSearchResult {
+  data: [ParentAccountsSearchData!]!
+  pageInfo: PageInfo!
+}
+
 type Query {
+  getParentAccounts(searchInput: ParentAccountsSearchInput): ParentAccountsSearch!
   parentAccounts(email: String, userId: Int, username: String): [ParentAccount!]!
   parentAccountsMinimal: [ParentAccountMinimal!]!
 }

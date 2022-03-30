@@ -14,6 +14,14 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  ParentAccountsSearchInput: { // input type
+    afterKey?: number | null; // Int
+    beforeKey?: number | null; // Int
+    email?: string | null; // String
+    limit?: number | null; // Int
+    userId?: number | null; // Int
+    username?: string | null; // String
+  }
 }
 
 export interface NexusGenEnums {
@@ -28,6 +36,11 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  PageInfo: { // root type
+    afterKey?: number | null; // Int
+    beforeKey?: number | null; // Int
+    limit?: number | null; // Int
+  }
   ParentAccount: { // root type
     createdAt?: string | null; // String
     package: string; // String!
@@ -39,6 +52,18 @@ export interface NexusGenObjects {
     createdAt?: string | null; // String
     userId: number; // Int!
     username: string; // String!
+  }
+  ParentAccountsSearch: { // root type
+    result: NexusGenRootTypes['ParentAccountsSearchResult']; // ParentAccountsSearchResult!
+  }
+  ParentAccountsSearchData: { // root type
+    createdAt?: string | null; // String
+    userId: number; // Int!
+    username: string; // String!
+  }
+  ParentAccountsSearchResult: { // root type
+    data: NexusGenRootTypes['ParentAccountsSearchData'][]; // [ParentAccountsSearchData!]!
+    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
   }
   Query: {};
 }
@@ -54,6 +79,11 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  PageInfo: { // field return type
+    afterKey: number | null; // Int
+    beforeKey: number | null; // Int
+    limit: number | null; // Int
+  }
   ParentAccount: { // field return type
     createdAt: string | null; // String
     package: string; // String!
@@ -66,13 +96,31 @@ export interface NexusGenFieldTypes {
     userId: number; // Int!
     username: string; // String!
   }
+  ParentAccountsSearch: { // field return type
+    result: NexusGenRootTypes['ParentAccountsSearchResult']; // ParentAccountsSearchResult!
+  }
+  ParentAccountsSearchData: { // field return type
+    createdAt: string | null; // String
+    userId: number; // Int!
+    username: string; // String!
+  }
+  ParentAccountsSearchResult: { // field return type
+    data: NexusGenRootTypes['ParentAccountsSearchData'][]; // [ParentAccountsSearchData!]!
+    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
+  }
   Query: { // field return type
+    getParentAccounts: NexusGenRootTypes['ParentAccountsSearch']; // ParentAccountsSearch!
     parentAccounts: NexusGenRootTypes['ParentAccount'][]; // [ParentAccount!]!
     parentAccountsMinimal: NexusGenRootTypes['ParentAccountMinimal'][]; // [ParentAccountMinimal!]!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  PageInfo: { // field return type name
+    afterKey: 'Int'
+    beforeKey: 'Int'
+    limit: 'Int'
+  }
   ParentAccount: { // field return type name
     createdAt: 'String'
     package: 'String'
@@ -85,7 +133,20 @@ export interface NexusGenFieldTypeNames {
     userId: 'Int'
     username: 'String'
   }
+  ParentAccountsSearch: { // field return type name
+    result: 'ParentAccountsSearchResult'
+  }
+  ParentAccountsSearchData: { // field return type name
+    createdAt: 'String'
+    userId: 'Int'
+    username: 'String'
+  }
+  ParentAccountsSearchResult: { // field return type name
+    data: 'ParentAccountsSearchData'
+    pageInfo: 'PageInfo'
+  }
   Query: { // field return type name
+    getParentAccounts: 'ParentAccountsSearch'
     parentAccounts: 'ParentAccount'
     parentAccountsMinimal: 'ParentAccountMinimal'
   }
@@ -93,6 +154,9 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Query: {
+    getParentAccounts: { // args
+      searchInput?: NexusGenInputs['ParentAccountsSearchInput'] | null; // ParentAccountsSearchInput
+    }
     parentAccounts: { // args
       email?: string | null; // String
       userId?: number | null; // Int
@@ -109,7 +173,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 
