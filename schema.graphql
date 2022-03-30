@@ -57,8 +57,47 @@ type ParentAccountsSearchResult {
 type Query {
   """Get parent accounts based on search input"""
   getParentAccounts(searchInput: ParentAccountsSearchInput): ParentAccountsSearch!
+
+  """Get subusers based on search input"""
+  getSubusers(searchInput: SubusersSearchInput): SubusersSearch!
   parentAccounts(email: String, userId: Int, username: String): [ParentAccount!]!
   parentAccountsMinimal: [ParentAccountMinimal!]!
+}
+
+"""Subuser search result with data and pageInfo"""
+type SubusersSearch {
+  result: SubusersSearchResult!
+}
+
+"""
+Subuser search row data such as userId, username, parentUserId, status, etc.
+"""
+type SubusersSearchData {
+  createdAt: String
+  parentUserId: Int!
+  parentUsername: String!
+  status: UserStatus!
+  userId: Int!
+  username: String!
+}
+
+"""
+Subuser search input i.e by userId, parentUserId, email, username, pagination
+"""
+input SubusersSearchInput {
+  afterKey: String
+  beforeKey: String
+  email: String
+  limit: String
+  parentUserId: Int
+  userId: Int
+  username: String
+}
+
+"""Subuser search result data i.e. list of matched subusers and page info"""
+type SubusersSearchResult {
+  data: [SubusersSearchData!]!
+  pageInfo: PageInfo!
 }
 
 """User status types such as Active, Billing Frozen, etc."""

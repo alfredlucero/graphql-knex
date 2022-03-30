@@ -174,3 +174,91 @@ export const ParentAccountQuery = extendType({
     });
   },
 });
+
+export const SubusersSearchData = objectType({
+  name: "SubusersSearchData",
+  description:
+    "Subuser search row data such as userId, username, parentUserId, status, etc.",
+  definition(t) {
+    t.nonNull.int("userId");
+    t.nonNull.string("username");
+    t.nonNull.int("parentUserId");
+    t.nonNull.string("parentUsername");
+    t.nonNull.field("status", {
+      type: UserStatus,
+    });
+    t.string("createdAt");
+  },
+});
+
+export const SubusersSearchResult = objectType({
+  name: "SubusersSearchResult",
+  description:
+    "Subuser search result data i.e. list of matched subusers and page info",
+  definition(t) {
+    t.nonNull.list.nonNull.field("data", {
+      type: "SubusersSearchData",
+    });
+    t.nonNull.field("pageInfo", {
+      type: "PageInfo",
+    });
+  },
+});
+
+export const SubusersSearch = objectType({
+  name: "SubusersSearch",
+  description: "Subuser search result with data and pageInfo",
+  definition(t) {
+    t.nonNull.field("result", {
+      type: "SubusersSearchResult",
+    });
+  },
+});
+
+export const SubusersSearchInput = inputObjectType({
+  name: "SubusersSearchInput",
+  description:
+    "Subuser search input i.e by userId, parentUserId, email, username, pagination",
+  definition(t) {
+    t.int("userId");
+    t.string("email");
+    t.string("username");
+    t.int("parentUserId");
+    t.string("limit");
+    t.string("afterKey");
+    t.string("beforeKey");
+  },
+});
+
+export const SubuserQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("getSubusers", {
+      type: "SubusersSearch",
+      args: { searchInput: SubusersSearchInput },
+      description: "Get subusers based on search input",
+      async resolve(parent, args, context) {
+        console.log("getSubusers Args: ", args);
+        return {
+          result: {
+            data: [
+              {
+                userId: 1000,
+                parentUserId: 1,
+                parentUsername: "user1",
+                username: "subuser1",
+                createdAt: "2022-03-29",
+                status: "Active",
+              },
+            ],
+            pageInfo: {
+              limit: "10",
+              beforeKey: null,
+              afterKey: null,
+            },
+          },
+        };
+      },
+    });
+  },
+});

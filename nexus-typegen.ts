@@ -22,6 +22,15 @@ export interface NexusGenInputs {
     userId?: number | null; // Int
     username?: string | null; // String
   }
+  SubusersSearchInput: { // input type
+    afterKey?: string | null; // String
+    beforeKey?: string | null; // String
+    email?: string | null; // String
+    limit?: string | null; // String
+    parentUserId?: number | null; // Int
+    userId?: number | null; // Int
+    username?: string | null; // String
+  }
 }
 
 export interface NexusGenEnums {
@@ -69,6 +78,21 @@ export interface NexusGenObjects {
     pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
   }
   Query: {};
+  SubusersSearch: { // root type
+    result: NexusGenRootTypes['SubusersSearchResult']; // SubusersSearchResult!
+  }
+  SubusersSearchData: { // root type
+    createdAt?: string | null; // String
+    parentUserId: number; // Int!
+    parentUsername: string; // String!
+    status: NexusGenEnums['UserStatus']; // UserStatus!
+    userId: number; // Int!
+    username: string; // String!
+  }
+  SubusersSearchResult: { // root type
+    data: NexusGenRootTypes['SubusersSearchData'][]; // [SubusersSearchData!]!
+    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -115,8 +139,24 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getParentAccounts: NexusGenRootTypes['ParentAccountsSearch']; // ParentAccountsSearch!
+    getSubusers: NexusGenRootTypes['SubusersSearch']; // SubusersSearch!
     parentAccounts: NexusGenRootTypes['ParentAccount'][]; // [ParentAccount!]!
     parentAccountsMinimal: NexusGenRootTypes['ParentAccountMinimal'][]; // [ParentAccountMinimal!]!
+  }
+  SubusersSearch: { // field return type
+    result: NexusGenRootTypes['SubusersSearchResult']; // SubusersSearchResult!
+  }
+  SubusersSearchData: { // field return type
+    createdAt: string | null; // String
+    parentUserId: number; // Int!
+    parentUsername: string; // String!
+    status: NexusGenEnums['UserStatus']; // UserStatus!
+    userId: number; // Int!
+    username: string; // String!
+  }
+  SubusersSearchResult: { // field return type
+    data: NexusGenRootTypes['SubusersSearchData'][]; // [SubusersSearchData!]!
+    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
   }
 }
 
@@ -154,8 +194,24 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     getParentAccounts: 'ParentAccountsSearch'
+    getSubusers: 'SubusersSearch'
     parentAccounts: 'ParentAccount'
     parentAccountsMinimal: 'ParentAccountMinimal'
+  }
+  SubusersSearch: { // field return type name
+    result: 'SubusersSearchResult'
+  }
+  SubusersSearchData: { // field return type name
+    createdAt: 'String'
+    parentUserId: 'Int'
+    parentUsername: 'String'
+    status: 'UserStatus'
+    userId: 'Int'
+    username: 'String'
+  }
+  SubusersSearchResult: { // field return type name
+    data: 'SubusersSearchData'
+    pageInfo: 'PageInfo'
   }
 }
 
@@ -163,6 +219,9 @@ export interface NexusGenArgTypes {
   Query: {
     getParentAccounts: { // args
       searchInput?: NexusGenInputs['ParentAccountsSearchInput'] | null; // ParentAccountsSearchInput
+    }
+    getSubusers: { // args
+      searchInput?: NexusGenInputs['SubusersSearchInput'] | null; // SubusersSearchInput
     }
     parentAccounts: { // args
       email?: string | null; // String
