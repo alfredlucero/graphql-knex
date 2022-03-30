@@ -3,9 +3,9 @@
 
 
 type PageInfo {
-  afterKey: Int
-  beforeKey: Int
-  limit: Int
+  afterKey: String
+  beforeKey: String
+  limit: String
 }
 
 type ParentAccount {
@@ -22,32 +22,60 @@ type ParentAccountMinimal {
   username: String!
 }
 
+"""Parent account search result with data and pageInfo"""
 type ParentAccountsSearch {
   result: ParentAccountsSearchResult!
 }
 
+"""Parent account search row data such as userId, username, status, etc."""
 type ParentAccountsSearchData {
   createdAt: String
+  package: String!
+  status: UserStatus!
   userId: Int!
   username: String!
 }
 
+"""Parent account search input i.e by userId, email, username, pagination"""
 input ParentAccountsSearchInput {
-  afterKey: Int
-  beforeKey: Int
+  afterKey: String
+  beforeKey: String
   email: String
-  limit: Int
+  limit: String
   userId: Int
   username: String
 }
 
+"""
+Parent account search result data i.e. list of matched parent accounts and page info
+"""
 type ParentAccountsSearchResult {
   data: [ParentAccountsSearchData!]!
   pageInfo: PageInfo!
 }
 
 type Query {
+  """Get parent accounts based on search input"""
   getParentAccounts(searchInput: ParentAccountsSearchInput): ParentAccountsSearch!
   parentAccounts(email: String, userId: Int, username: String): [ParentAccount!]!
   parentAccountsMinimal: [ParentAccountMinimal!]!
+}
+
+"""User status types such as Active, Billing Frozen, etc."""
+enum UserStatus {
+  Active
+  BillingFrozen
+  BillingTerminated
+  BillingWarned
+  ComplianceBanned
+  ComplianceDeactivated
+  ComplianceSuspended
+  ComplianceWarned
+  NA
+  ProfileUpdated
+  ProvisionFail
+  ProvisionNeeded
+  ProvisionPending
+  ProvisionPermfail
+  UpgradeReview
 }

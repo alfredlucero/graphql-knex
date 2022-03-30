@@ -6,6 +6,7 @@ import {
   stringArg,
   intArg,
   inputObjectType,
+  enumType,
 } from "nexus";
 
 export const ParentAccount = objectType({
@@ -31,23 +32,53 @@ export const ParentAccountMinimal = objectType({
 export const PageInfo = objectType({
   name: "PageInfo",
   definition(t) {
-    t.int("limit");
-    t.int("afterKey");
-    t.int("beforeKey");
+    t.string("limit");
+    t.string("afterKey");
+    t.string("beforeKey");
   },
+});
+
+const UserStatus = enumType({
+  name: "UserStatus",
+  members: [
+    "Active",
+    "ComplianceBanned",
+    "ComplianceDeactivated",
+    "ComplianceSuspended",
+    "ProvisionFail",
+    "ComplianceWarned",
+    "ProvisionPermfail",
+    "ProvisionNeeded",
+    "ProfileUpdated",
+    "ProvisionPending",
+    "BillingWarned",
+    "BillingFrozen",
+    "BillingTerminated",
+    "UpgradeReview",
+    "NA",
+  ],
+  description: "User status types such as Active, Billing Frozen, etc.",
 });
 
 export const ParentAccountsSearchData = objectType({
   name: "ParentAccountsSearchData",
+  description:
+    "Parent account search row data such as userId, username, status, etc.",
   definition(t) {
     t.nonNull.int("userId");
     t.nonNull.string("username");
+    t.nonNull.string("package");
+    t.nonNull.field("status", {
+      type: UserStatus,
+    });
     t.string("createdAt");
   },
 });
 
 export const ParentAccountsSearchResult = objectType({
   name: "ParentAccountsSearchResult",
+  description:
+    "Parent account search result data i.e. list of matched parent accounts and page info",
   definition(t) {
     t.nonNull.list.nonNull.field("data", {
       type: "ParentAccountsSearchData",
@@ -60,6 +91,7 @@ export const ParentAccountsSearchResult = objectType({
 
 export const ParentAccountsSearch = objectType({
   name: "ParentAccountsSearch",
+  description: "Parent account search result with data and pageInfo",
   definition(t) {
     t.nonNull.field("result", {
       type: "ParentAccountsSearchResult",
@@ -69,13 +101,15 @@ export const ParentAccountsSearch = objectType({
 
 export const ParentAccountsSearchInput = inputObjectType({
   name: "ParentAccountsSearchInput",
+  description:
+    "Parent account search input i.e by userId, email, username, pagination",
   definition(t) {
-    t.int("limit");
     t.int("userId");
     t.string("email");
     t.string("username");
-    t.int("afterKey");
-    t.int("beforeKey");
+    t.string("limit");
+    t.string("afterKey");
+    t.string("beforeKey");
   },
 });
 
@@ -115,6 +149,7 @@ export const ParentAccountQuery = extendType({
     t.nonNull.field("getParentAccounts", {
       type: "ParentAccountsSearch",
       args: { searchInput: ParentAccountsSearchInput },
+      description: "Get parent accounts based on search input",
       async resolve(parent, args, context) {
         console.log("getParentAccounts Args: ", args);
         return {
@@ -124,10 +159,12 @@ export const ParentAccountQuery = extendType({
                 userId: 1,
                 username: "user1",
                 createdAt: "2022-03-29",
+                package: "Pro 100K",
+                status: "Active",
               },
             ],
             pageInfo: {
-              limit: 10,
+              limit: "10",
               beforeKey: null,
               afterKey: null,
             },

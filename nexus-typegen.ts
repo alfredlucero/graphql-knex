@@ -15,16 +15,17 @@ declare global {
 
 export interface NexusGenInputs {
   ParentAccountsSearchInput: { // input type
-    afterKey?: number | null; // Int
-    beforeKey?: number | null; // Int
+    afterKey?: string | null; // String
+    beforeKey?: string | null; // String
     email?: string | null; // String
-    limit?: number | null; // Int
+    limit?: string | null; // String
     userId?: number | null; // Int
     username?: string | null; // String
   }
 }
 
 export interface NexusGenEnums {
+  UserStatus: "Active" | "BillingFrozen" | "BillingTerminated" | "BillingWarned" | "ComplianceBanned" | "ComplianceDeactivated" | "ComplianceSuspended" | "ComplianceWarned" | "NA" | "ProfileUpdated" | "ProvisionFail" | "ProvisionNeeded" | "ProvisionPending" | "ProvisionPermfail" | "UpgradeReview"
 }
 
 export interface NexusGenScalars {
@@ -37,9 +38,9 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   PageInfo: { // root type
-    afterKey?: number | null; // Int
-    beforeKey?: number | null; // Int
-    limit?: number | null; // Int
+    afterKey?: string | null; // String
+    beforeKey?: string | null; // String
+    limit?: string | null; // String
   }
   ParentAccount: { // root type
     createdAt?: string | null; // String
@@ -58,6 +59,8 @@ export interface NexusGenObjects {
   }
   ParentAccountsSearchData: { // root type
     createdAt?: string | null; // String
+    package: string; // String!
+    status: NexusGenEnums['UserStatus']; // UserStatus!
     userId: number; // Int!
     username: string; // String!
   }
@@ -76,13 +79,13 @@ export interface NexusGenUnions {
 
 export type NexusGenRootTypes = NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
   PageInfo: { // field return type
-    afterKey: number | null; // Int
-    beforeKey: number | null; // Int
-    limit: number | null; // Int
+    afterKey: string | null; // String
+    beforeKey: string | null; // String
+    limit: string | null; // String
   }
   ParentAccount: { // field return type
     createdAt: string | null; // String
@@ -101,6 +104,8 @@ export interface NexusGenFieldTypes {
   }
   ParentAccountsSearchData: { // field return type
     createdAt: string | null; // String
+    package: string; // String!
+    status: NexusGenEnums['UserStatus']; // UserStatus!
     userId: number; // Int!
     username: string; // String!
   }
@@ -117,9 +122,9 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   PageInfo: { // field return type name
-    afterKey: 'Int'
-    beforeKey: 'Int'
-    limit: 'Int'
+    afterKey: 'String'
+    beforeKey: 'String'
+    limit: 'String'
   }
   ParentAccount: { // field return type name
     createdAt: 'String'
@@ -138,6 +143,8 @@ export interface NexusGenFieldTypeNames {
   }
   ParentAccountsSearchData: { // field return type name
     createdAt: 'String'
+    package: 'String'
+    status: 'UserStatus'
     userId: 'Int'
     username: 'String'
   }
@@ -175,7 +182,7 @@ export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = keyof NexusGenInputs;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = keyof NexusGenEnums;
 
 export type NexusGenInterfaceNames = never;
 
