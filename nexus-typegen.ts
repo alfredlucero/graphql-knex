@@ -18,7 +18,7 @@ export interface NexusGenInputs {
     afterKey?: string | null; // String
     beforeKey?: string | null; // String
     email?: string | null; // String
-    limit?: string | null; // String
+    limit?: number | null; // Int
     userId?: number | null; // Int
     username?: string | null; // String
   }
@@ -26,7 +26,16 @@ export interface NexusGenInputs {
     afterKey?: string | null; // String
     beforeKey?: string | null; // String
     email?: string | null; // String
-    limit?: string | null; // String
+    limit?: number | null; // Int
+    parentUserId?: number | null; // Int
+    userId?: number | null; // Int
+    username?: string | null; // String
+  }
+  TeammatesSearchInput: { // input type
+    afterKey?: string | null; // String
+    beforeKey?: string | null; // String
+    email?: string | null; // String
+    limit?: number | null; // Int
     parentUserId?: number | null; // Int
     userId?: number | null; // Int
     username?: string | null; // String
@@ -49,7 +58,6 @@ export interface NexusGenObjects {
   PageInfo: { // root type
     afterKey?: string | null; // String
     beforeKey?: string | null; // String
-    limit?: string | null; // String
   }
   ParentAccount: { // root type
     createdAt?: string | null; // String
@@ -93,6 +101,19 @@ export interface NexusGenObjects {
     data: NexusGenRootTypes['SubusersSearchData'][]; // [SubusersSearchData!]!
     pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
   }
+  TeammatesSearch: { // root type
+    result: NexusGenRootTypes['TeammatesSearchResult']; // TeammatesSearchResult!
+  }
+  TeammatesSearchData: { // root type
+    createdAt?: string | null; // String
+    parentUserId: number; // Int!
+    parentUsername: string; // String!
+    username: string; // String!
+  }
+  TeammatesSearchResult: { // root type
+    data: NexusGenRootTypes['TeammatesSearchData'][]; // [TeammatesSearchData!]!
+    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -109,7 +130,6 @@ export interface NexusGenFieldTypes {
   PageInfo: { // field return type
     afterKey: string | null; // String
     beforeKey: string | null; // String
-    limit: string | null; // String
   }
   ParentAccount: { // field return type
     createdAt: string | null; // String
@@ -140,6 +160,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     getParentAccounts: NexusGenRootTypes['ParentAccountsSearch']; // ParentAccountsSearch!
     getSubusers: NexusGenRootTypes['SubusersSearch']; // SubusersSearch!
+    getTeammates: NexusGenRootTypes['TeammatesSearch']; // TeammatesSearch!
     parentAccounts: NexusGenRootTypes['ParentAccount'][]; // [ParentAccount!]!
     parentAccountsMinimal: NexusGenRootTypes['ParentAccountMinimal'][]; // [ParentAccountMinimal!]!
   }
@@ -158,13 +179,25 @@ export interface NexusGenFieldTypes {
     data: NexusGenRootTypes['SubusersSearchData'][]; // [SubusersSearchData!]!
     pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
   }
+  TeammatesSearch: { // field return type
+    result: NexusGenRootTypes['TeammatesSearchResult']; // TeammatesSearchResult!
+  }
+  TeammatesSearchData: { // field return type
+    createdAt: string | null; // String
+    parentUserId: number; // Int!
+    parentUsername: string; // String!
+    username: string; // String!
+  }
+  TeammatesSearchResult: { // field return type
+    data: NexusGenRootTypes['TeammatesSearchData'][]; // [TeammatesSearchData!]!
+    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
+  }
 }
 
 export interface NexusGenFieldTypeNames {
   PageInfo: { // field return type name
     afterKey: 'String'
     beforeKey: 'String'
-    limit: 'String'
   }
   ParentAccount: { // field return type name
     createdAt: 'String'
@@ -195,6 +228,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     getParentAccounts: 'ParentAccountsSearch'
     getSubusers: 'SubusersSearch'
+    getTeammates: 'TeammatesSearch'
     parentAccounts: 'ParentAccount'
     parentAccountsMinimal: 'ParentAccountMinimal'
   }
@@ -213,6 +247,19 @@ export interface NexusGenFieldTypeNames {
     data: 'SubusersSearchData'
     pageInfo: 'PageInfo'
   }
+  TeammatesSearch: { // field return type name
+    result: 'TeammatesSearchResult'
+  }
+  TeammatesSearchData: { // field return type name
+    createdAt: 'String'
+    parentUserId: 'Int'
+    parentUsername: 'String'
+    username: 'String'
+  }
+  TeammatesSearchResult: { // field return type name
+    data: 'TeammatesSearchData'
+    pageInfo: 'PageInfo'
+  }
 }
 
 export interface NexusGenArgTypes {
@@ -222,6 +269,9 @@ export interface NexusGenArgTypes {
     }
     getSubusers: { // args
       searchInput?: NexusGenInputs['SubusersSearchInput'] | null; // SubusersSearchInput
+    }
+    getTeammates: { // args
+      searchInput?: NexusGenInputs['TeammatesSearchInput'] | null; // TeammatesSearchInput
     }
     parentAccounts: { // args
       email?: string | null; // String

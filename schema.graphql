@@ -5,7 +5,6 @@
 type PageInfo {
   afterKey: String
   beforeKey: String
-  limit: String
 }
 
 type ParentAccount {
@@ -41,7 +40,7 @@ input ParentAccountsSearchInput {
   afterKey: String
   beforeKey: String
   email: String
-  limit: String
+  limit: Int
   userId: Int
   username: String
 }
@@ -60,6 +59,9 @@ type Query {
 
   """Get subusers based on search input"""
   getSubusers(searchInput: SubusersSearchInput): SubusersSearch!
+
+  """Get teammates based on search input"""
+  getTeammates(searchInput: TeammatesSearchInput): TeammatesSearch!
   parentAccounts(email: String, userId: Int, username: String): [ParentAccount!]!
   parentAccountsMinimal: [ParentAccountMinimal!]!
 }
@@ -88,7 +90,7 @@ input SubusersSearchInput {
   afterKey: String
   beforeKey: String
   email: String
-  limit: String
+  limit: Int
   parentUserId: Int
   userId: Int
   username: String
@@ -97,6 +99,40 @@ input SubusersSearchInput {
 """Subuser search result data i.e. list of matched subusers and page info"""
 type SubusersSearchResult {
   data: [SubusersSearchData!]!
+  pageInfo: PageInfo!
+}
+
+"""Teammate search result with data and pageInfo"""
+type TeammatesSearch {
+  result: TeammatesSearchResult!
+}
+
+"""
+Teammate search row data such as parentUserId, parentUsername, username, etc.
+"""
+type TeammatesSearchData {
+  createdAt: String
+  parentUserId: Int!
+  parentUsername: String!
+  username: String!
+}
+
+"""Teammate search input i.e by parentUserId, username, email, pagination"""
+input TeammatesSearchInput {
+  afterKey: String
+  beforeKey: String
+  email: String
+  limit: Int
+  parentUserId: Int
+  userId: Int
+  username: String
+}
+
+"""
+Teammate search result data i.e. list of matched teammates and page info
+"""
+type TeammatesSearchResult {
+  data: [TeammatesSearchData!]!
   pageInfo: PageInfo!
 }
 

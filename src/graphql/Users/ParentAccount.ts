@@ -32,7 +32,6 @@ export const ParentAccountMinimal = objectType({
 export const PageInfo = objectType({
   name: "PageInfo",
   definition(t) {
-    t.string("limit");
     t.string("afterKey");
     t.string("beforeKey");
   },
@@ -107,7 +106,7 @@ export const ParentAccountsSearchInput = inputObjectType({
     t.int("userId");
     t.string("email");
     t.string("username");
-    t.string("limit");
+    t.int("limit");
     t.string("afterKey");
     t.string("beforeKey");
   },
@@ -164,7 +163,6 @@ export const ParentAccountQuery = extendType({
               },
             ],
             pageInfo: {
-              limit: "10",
               beforeKey: null,
               afterKey: null,
             },
@@ -224,7 +222,7 @@ export const SubusersSearchInput = inputObjectType({
     t.string("email");
     t.string("username");
     t.int("parentUserId");
-    t.string("limit");
+    t.int("limit");
     t.string("afterKey");
     t.string("beforeKey");
   },
@@ -252,7 +250,87 @@ export const SubuserQuery = extendType({
               },
             ],
             pageInfo: {
-              limit: "10",
+              beforeKey: null,
+              afterKey: null,
+            },
+          },
+        };
+      },
+    });
+  },
+});
+
+export const TeammatesSearchData = objectType({
+  name: "TeammatesSearchData",
+  description:
+    "Teammate search row data such as parentUserId, parentUsername, username, etc.",
+  definition(t) {
+    t.nonNull.int("parentUserId");
+    t.nonNull.string("parentUsername");
+    t.nonNull.string("username");
+    t.string("createdAt");
+  },
+});
+
+export const TeammatesSearchResult = objectType({
+  name: "TeammatesSearchResult",
+  description:
+    "Teammate search result data i.e. list of matched teammates and page info",
+  definition(t) {
+    t.nonNull.list.nonNull.field("data", {
+      type: "TeammatesSearchData",
+    });
+    t.nonNull.field("pageInfo", {
+      type: "PageInfo",
+    });
+  },
+});
+
+export const TeammatesSearch = objectType({
+  name: "TeammatesSearch",
+  description: "Teammate search result with data and pageInfo",
+  definition(t) {
+    t.nonNull.field("result", {
+      type: "TeammatesSearchResult",
+    });
+  },
+});
+
+export const TeammatesSearchInput = inputObjectType({
+  name: "TeammatesSearchInput",
+  description:
+    "Teammate search input i.e by parentUserId, username, email, pagination",
+  definition(t) {
+    t.int("userId");
+    t.string("email");
+    t.string("username");
+    t.int("parentUserId");
+    t.int("limit");
+    t.string("afterKey");
+    t.string("beforeKey");
+  },
+});
+
+export const TeammateQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("getTeammates", {
+      type: "TeammatesSearch",
+      args: { searchInput: TeammatesSearchInput },
+      description: "Get teammates based on search input",
+      async resolve(parent, args, context) {
+        console.log("getTeammates Args: ", args);
+        return {
+          result: {
+            data: [
+              {
+                parentUserId: 1,
+                parentUsername: "user1",
+                username: "teammate1",
+                createdAt: "2022-03-29",
+              },
+            ],
+            pageInfo: {
               beforeKey: null,
               afterKey: null,
             },
