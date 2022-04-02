@@ -44,11 +44,13 @@ const UserStatus = enumType({
     "ComplianceBanned",
     "ComplianceDeactivated",
     "ComplianceSuspended",
-    "ProvisionFail",
     "ComplianceWarned",
+    "SoftDelete",
+    "ProvisionFail",
     "ProvisionPermfail",
     "ProvisionNeeded",
     "ProfileUpdated",
+    "IncompleteProfile",
     "ProvisionPending",
     "BillingWarned",
     "BillingFrozen",
@@ -337,6 +339,45 @@ export const TeammateQuery = extendType({
           },
         };
       },
+    });
+  },
+});
+
+export const UserProfile = objectType({
+  name: "UserProfile",
+  description:
+    "User profile info such as phone and website part of user_profile table",
+  definition(t) {
+    t.nonNull.string("phone");
+    t.nonNull.string("website");
+  },
+});
+
+export const UserData = objectType({
+  name: "UserData",
+  description: "User data such as username and email part of user table",
+  definition(t) {
+    t.nonNull.string("username");
+    t.nonNull.string("email");
+    t.nonNull.boolean("isActive");
+    t.int("resellerId");
+  },
+});
+
+export const UserDetailsInfo = objectType({
+  name: "UserDetailsInfo",
+  description: "User details info such as user, profile, and status",
+  definition(t) {
+    t.nonNull.field("user", {
+      type: "UserData",
+    });
+
+    t.nonNull.field("profile", {
+      type: "UserProfile",
+    });
+
+    t.nonNull.field("status", {
+      type: "UserStatus",
     });
   },
 });

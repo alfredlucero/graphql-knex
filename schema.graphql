@@ -136,6 +136,27 @@ type TeammatesSearchResult {
   pageInfo: PageInfo!
 }
 
+"""User data such as username and email part of user table"""
+type UserData {
+  email: String!
+  isActive: Boolean!
+  resellerId: Int
+  username: String!
+}
+
+"""User details info such as user, profile, and status"""
+type UserDetailsInfo {
+  profile: UserProfile!
+  status: UserStatus!
+  user: UserData!
+}
+
+"""User profile info such as phone and website part of user_profile table"""
+type UserProfile {
+  phone: String!
+  website: String!
+}
+
 """User status types such as Active, Billing Frozen, etc."""
 enum UserStatus {
   Active
@@ -146,11 +167,13 @@ enum UserStatus {
   ComplianceDeactivated
   ComplianceSuspended
   ComplianceWarned
+  IncompleteProfile
   NA
   ProfileUpdated
   ProvisionFail
   ProvisionNeeded
   ProvisionPending
   ProvisionPermfail
+  SoftDelete
   UpgradeReview
 }

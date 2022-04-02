@@ -43,7 +43,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
-  UserStatus: "Active" | "BillingFrozen" | "BillingTerminated" | "BillingWarned" | "ComplianceBanned" | "ComplianceDeactivated" | "ComplianceSuspended" | "ComplianceWarned" | "NA" | "ProfileUpdated" | "ProvisionFail" | "ProvisionNeeded" | "ProvisionPending" | "ProvisionPermfail" | "UpgradeReview"
+  UserStatus: "Active" | "BillingFrozen" | "BillingTerminated" | "BillingWarned" | "ComplianceBanned" | "ComplianceDeactivated" | "ComplianceSuspended" | "ComplianceWarned" | "IncompleteProfile" | "NA" | "ProfileUpdated" | "ProvisionFail" | "ProvisionNeeded" | "ProvisionPending" | "ProvisionPermfail" | "SoftDelete" | "UpgradeReview"
 }
 
 export interface NexusGenScalars {
@@ -113,6 +113,21 @@ export interface NexusGenObjects {
   TeammatesSearchResult: { // root type
     data: NexusGenRootTypes['TeammatesSearchData'][]; // [TeammatesSearchData!]!
     pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
+  }
+  UserData: { // root type
+    email: string; // String!
+    isActive: boolean; // Boolean!
+    resellerId?: number | null; // Int
+    username: string; // String!
+  }
+  UserDetailsInfo: { // root type
+    profile: NexusGenRootTypes['UserProfile']; // UserProfile!
+    status: NexusGenEnums['UserStatus']; // UserStatus!
+    user: NexusGenRootTypes['UserData']; // UserData!
+  }
+  UserProfile: { // root type
+    phone: string; // String!
+    website: string; // String!
   }
 }
 
@@ -192,6 +207,21 @@ export interface NexusGenFieldTypes {
     data: NexusGenRootTypes['TeammatesSearchData'][]; // [TeammatesSearchData!]!
     pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
   }
+  UserData: { // field return type
+    email: string; // String!
+    isActive: boolean; // Boolean!
+    resellerId: number | null; // Int
+    username: string; // String!
+  }
+  UserDetailsInfo: { // field return type
+    profile: NexusGenRootTypes['UserProfile']; // UserProfile!
+    status: NexusGenEnums['UserStatus']; // UserStatus!
+    user: NexusGenRootTypes['UserData']; // UserData!
+  }
+  UserProfile: { // field return type
+    phone: string; // String!
+    website: string; // String!
+  }
 }
 
 export interface NexusGenFieldTypeNames {
@@ -259,6 +289,21 @@ export interface NexusGenFieldTypeNames {
   TeammatesSearchResult: { // field return type name
     data: 'TeammatesSearchData'
     pageInfo: 'PageInfo'
+  }
+  UserData: { // field return type name
+    email: 'String'
+    isActive: 'Boolean'
+    resellerId: 'Int'
+    username: 'String'
+  }
+  UserDetailsInfo: { // field return type name
+    profile: 'UserProfile'
+    status: 'UserStatus'
+    user: 'UserData'
+  }
+  UserProfile: { // field return type name
+    phone: 'String'
+    website: 'String'
   }
 }
 
