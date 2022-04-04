@@ -2,6 +2,40 @@
 ### Do not make changes to this file directly
 
 
+"""Addon information such as displayName, name, quantity, isActive"""
+type OfferingsAddon {
+  displayName: String!
+  isActive: Boolean!
+  name: String!
+  quantity: Int!
+}
+
+"""Discount information such as displayName, name, isActive"""
+type OfferingsDiscount {
+  displayName: String!
+  isActive: Boolean!
+  name: String!
+}
+
+"""Flag information such as name and isActive"""
+type OfferingsFlag {
+  isActive: Boolean!
+  name: String!
+}
+
+"""Package information such as displayName, name, and isActive"""
+type OfferingsPackage {
+  displayName: String!
+  isActive: Boolean!
+  name: String!
+}
+
+"""EI and MC offerings packages"""
+type OfferingsPackages {
+  ei: OfferingsPackage!
+  mc: OfferingsPackage!
+}
+
 type PageInfo {
   afterKey: String
   beforeKey: String
@@ -62,6 +96,12 @@ type Query {
 
   """Get teammates based on search input"""
   getTeammates(searchInput: TeammatesSearchInput): TeammatesSearch!
+
+  """Get user info based on user id"""
+  getUserInfo(userId: Int!): UserDetailsInfo!
+
+  """Get user offerings based on user ID"""
+  getUserOfferings(userId: Int!): UserDetailsOfferings!
   parentAccounts(email: String, userId: Int, username: String): [ParentAccount!]!
   parentAccountsMinimal: [ParentAccountMinimal!]!
 }
@@ -141,6 +181,7 @@ type UserData {
   email: String!
   isActive: Boolean!
   resellerId: Int
+  userId: Int!
   username: String!
 }
 
@@ -149,6 +190,14 @@ type UserDetailsInfo {
   profile: UserProfile!
   status: UserStatus!
   user: UserData!
+}
+
+"""User details offerings such as packages, addons, discounts, and flags"""
+type UserDetailsOfferings {
+  addons: [OfferingsAddon!]!
+  discounts: [OfferingsDiscount!]!
+  flags: [OfferingsFlag!]!
+  packages: OfferingsPackages!
 }
 
 """User profile info such as phone and website part of user_profile table"""

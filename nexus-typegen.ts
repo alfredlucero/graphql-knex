@@ -55,6 +55,30 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  OfferingsAddon: { // root type
+    displayName: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
+    quantity: number; // Int!
+  }
+  OfferingsDiscount: { // root type
+    displayName: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
+  }
+  OfferingsFlag: { // root type
+    isActive: boolean; // Boolean!
+    name: string; // String!
+  }
+  OfferingsPackage: { // root type
+    displayName: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
+  }
+  OfferingsPackages: { // root type
+    ei: NexusGenRootTypes['OfferingsPackage']; // OfferingsPackage!
+    mc: NexusGenRootTypes['OfferingsPackage']; // OfferingsPackage!
+  }
   PageInfo: { // root type
     afterKey?: string | null; // String
     beforeKey?: string | null; // String
@@ -118,12 +142,19 @@ export interface NexusGenObjects {
     email: string; // String!
     isActive: boolean; // Boolean!
     resellerId?: number | null; // Int
+    userId: number; // Int!
     username: string; // String!
   }
   UserDetailsInfo: { // root type
     profile: NexusGenRootTypes['UserProfile']; // UserProfile!
     status: NexusGenEnums['UserStatus']; // UserStatus!
     user: NexusGenRootTypes['UserData']; // UserData!
+  }
+  UserDetailsOfferings: { // root type
+    addons: NexusGenRootTypes['OfferingsAddon'][]; // [OfferingsAddon!]!
+    discounts: NexusGenRootTypes['OfferingsDiscount'][]; // [OfferingsDiscount!]!
+    flags: NexusGenRootTypes['OfferingsFlag'][]; // [OfferingsFlag!]!
+    packages: NexusGenRootTypes['OfferingsPackages']; // OfferingsPackages!
   }
   UserProfile: { // root type
     phone: string; // String!
@@ -142,6 +173,30 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  OfferingsAddon: { // field return type
+    displayName: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
+    quantity: number; // Int!
+  }
+  OfferingsDiscount: { // field return type
+    displayName: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
+  }
+  OfferingsFlag: { // field return type
+    isActive: boolean; // Boolean!
+    name: string; // String!
+  }
+  OfferingsPackage: { // field return type
+    displayName: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
+  }
+  OfferingsPackages: { // field return type
+    ei: NexusGenRootTypes['OfferingsPackage']; // OfferingsPackage!
+    mc: NexusGenRootTypes['OfferingsPackage']; // OfferingsPackage!
+  }
   PageInfo: { // field return type
     afterKey: string | null; // String
     beforeKey: string | null; // String
@@ -176,6 +231,8 @@ export interface NexusGenFieldTypes {
     getParentAccounts: NexusGenRootTypes['ParentAccountsSearch']; // ParentAccountsSearch!
     getSubusers: NexusGenRootTypes['SubusersSearch']; // SubusersSearch!
     getTeammates: NexusGenRootTypes['TeammatesSearch']; // TeammatesSearch!
+    getUserInfo: NexusGenRootTypes['UserDetailsInfo']; // UserDetailsInfo!
+    getUserOfferings: NexusGenRootTypes['UserDetailsOfferings']; // UserDetailsOfferings!
     parentAccounts: NexusGenRootTypes['ParentAccount'][]; // [ParentAccount!]!
     parentAccountsMinimal: NexusGenRootTypes['ParentAccountMinimal'][]; // [ParentAccountMinimal!]!
   }
@@ -211,12 +268,19 @@ export interface NexusGenFieldTypes {
     email: string; // String!
     isActive: boolean; // Boolean!
     resellerId: number | null; // Int
+    userId: number; // Int!
     username: string; // String!
   }
   UserDetailsInfo: { // field return type
     profile: NexusGenRootTypes['UserProfile']; // UserProfile!
     status: NexusGenEnums['UserStatus']; // UserStatus!
     user: NexusGenRootTypes['UserData']; // UserData!
+  }
+  UserDetailsOfferings: { // field return type
+    addons: NexusGenRootTypes['OfferingsAddon'][]; // [OfferingsAddon!]!
+    discounts: NexusGenRootTypes['OfferingsDiscount'][]; // [OfferingsDiscount!]!
+    flags: NexusGenRootTypes['OfferingsFlag'][]; // [OfferingsFlag!]!
+    packages: NexusGenRootTypes['OfferingsPackages']; // OfferingsPackages!
   }
   UserProfile: { // field return type
     phone: string; // String!
@@ -225,6 +289,30 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  OfferingsAddon: { // field return type name
+    displayName: 'String'
+    isActive: 'Boolean'
+    name: 'String'
+    quantity: 'Int'
+  }
+  OfferingsDiscount: { // field return type name
+    displayName: 'String'
+    isActive: 'Boolean'
+    name: 'String'
+  }
+  OfferingsFlag: { // field return type name
+    isActive: 'Boolean'
+    name: 'String'
+  }
+  OfferingsPackage: { // field return type name
+    displayName: 'String'
+    isActive: 'Boolean'
+    name: 'String'
+  }
+  OfferingsPackages: { // field return type name
+    ei: 'OfferingsPackage'
+    mc: 'OfferingsPackage'
+  }
   PageInfo: { // field return type name
     afterKey: 'String'
     beforeKey: 'String'
@@ -259,6 +347,8 @@ export interface NexusGenFieldTypeNames {
     getParentAccounts: 'ParentAccountsSearch'
     getSubusers: 'SubusersSearch'
     getTeammates: 'TeammatesSearch'
+    getUserInfo: 'UserDetailsInfo'
+    getUserOfferings: 'UserDetailsOfferings'
     parentAccounts: 'ParentAccount'
     parentAccountsMinimal: 'ParentAccountMinimal'
   }
@@ -294,12 +384,19 @@ export interface NexusGenFieldTypeNames {
     email: 'String'
     isActive: 'Boolean'
     resellerId: 'Int'
+    userId: 'Int'
     username: 'String'
   }
   UserDetailsInfo: { // field return type name
     profile: 'UserProfile'
     status: 'UserStatus'
     user: 'UserData'
+  }
+  UserDetailsOfferings: { // field return type name
+    addons: 'OfferingsAddon'
+    discounts: 'OfferingsDiscount'
+    flags: 'OfferingsFlag'
+    packages: 'OfferingsPackages'
   }
   UserProfile: { // field return type name
     phone: 'String'
@@ -317,6 +414,12 @@ export interface NexusGenArgTypes {
     }
     getTeammates: { // args
       searchInput?: NexusGenInputs['TeammatesSearchInput'] | null; // TeammatesSearchInput
+    }
+    getUserInfo: { // args
+      userId: number; // Int!
+    }
+    getUserOfferings: { // args
+      userId: number; // Int!
     }
     parentAccounts: { // args
       email?: string | null; // String

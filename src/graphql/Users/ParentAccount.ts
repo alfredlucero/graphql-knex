@@ -357,6 +357,7 @@ export const UserData = objectType({
   name: "UserData",
   description: "User data such as username and email part of user table",
   definition(t) {
+    t.nonNull.int("userId");
     t.nonNull.string("username");
     t.nonNull.string("email");
     t.nonNull.boolean("isActive");
@@ -378,6 +379,161 @@ export const UserDetailsInfo = objectType({
 
     t.nonNull.field("status", {
       type: "UserStatus",
+    });
+  },
+});
+
+export const OfferingsPackage = objectType({
+  name: "OfferingsPackage",
+  description: "Package information such as displayName, name, and isActive",
+  definition(t) {
+    t.nonNull.string("displayName");
+    t.nonNull.string("name");
+    t.nonNull.boolean("isActive");
+  },
+});
+
+export const OfferingsPackages = objectType({
+  name: "OfferingsPackages",
+  description: "EI and MC offerings packages",
+  definition(t) {
+    t.nonNull.field("ei", {
+      type: "OfferingsPackage",
+    });
+    t.nonNull.field("mc", {
+      type: "OfferingsPackage",
+    });
+  },
+});
+
+export const OfferingsAddon = objectType({
+  name: "OfferingsAddon",
+  description:
+    "Addon information such as displayName, name, quantity, isActive",
+  definition(t) {
+    t.nonNull.string("displayName");
+    t.nonNull.string("name");
+    t.nonNull.int("quantity");
+    t.nonNull.boolean("isActive");
+  },
+});
+
+export const OfferingsDiscount = objectType({
+  name: "OfferingsDiscount",
+  description: "Discount information such as displayName, name, isActive",
+  definition(t) {
+    t.nonNull.string("displayName");
+    t.nonNull.string("name");
+    t.nonNull.boolean("isActive");
+  },
+});
+
+export const OfferingsFlag = objectType({
+  name: "OfferingsFlag",
+  description: "Flag information such as name and isActive",
+  definition(t) {
+    t.nonNull.string("name");
+    t.nonNull.boolean("isActive");
+  },
+});
+
+export const UserDetailsOfferings = objectType({
+  name: "UserDetailsOfferings",
+  description:
+    "User details offerings such as packages, addons, discounts, and flags",
+  definition(t) {
+    t.nonNull.field("packages", {
+      type: "OfferingsPackages",
+    });
+    t.nonNull.list.nonNull.field("addons", {
+      type: "OfferingsAddon",
+    });
+    t.nonNull.list.nonNull.field("discounts", {
+      type: "OfferingsDiscount",
+    });
+    t.nonNull.list.nonNull.field("flags", {
+      type: "OfferingsFlag",
+    });
+  },
+});
+
+export const UserDetailsOfferingsQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("getUserOfferings", {
+      type: "UserDetailsOfferings",
+      description: "Get user offerings based on user ID",
+      args: {
+        userId: nonNull(intArg()),
+      },
+      async resolve(parent, args, context) {
+        console.log("User Details Offerings resolver args", args);
+        return {
+          packages: {
+            ei: {
+              displayName: "EI Pro 1.5M",
+              name: "sg.ei.pro-1p5m.v2",
+              isActive: true,
+            },
+            mc: {
+              displayName: "MC Free",
+              name: "sg.mc.free.v1",
+              isActive: true,
+            },
+          },
+          addons: [
+            {
+              displayName: "SG IPs",
+              name: "sg.x.ip.v2",
+              quantity: 2,
+              isActive: true,
+            },
+          ],
+          discounts: [
+            {
+              displayName: "Community Development",
+              name: "sg.discount.commdev",
+              isActive: true,
+            },
+          ],
+          flags: [
+            {
+              name: "flag.pre-trail.v1",
+              isActive: true,
+            },
+          ],
+        };
+      },
+    });
+  },
+});
+
+export const UserDetailsInfoQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("getUserInfo", {
+      description: "Get user info based on user id",
+      type: "UserDetailsInfo",
+      args: {
+        userId: nonNull(intArg()),
+      },
+      async resolve(parent, args, context) {
+        console.log("User Details Info resolver args", args);
+        return {
+          user: {
+            userId: args.userId,
+            username: "user1",
+            email: "user1@test.com",
+            isActive: true,
+            resellerId: null,
+          },
+          profile: {
+            phone: "5555555555",
+            website: "user1.com",
+          },
+          status: "Active",
+        };
+      },
     });
   },
 });
