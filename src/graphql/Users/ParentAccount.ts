@@ -442,16 +442,16 @@ export const UserDetailsOfferings = objectType({
   description:
     "User details offerings such as packages, addons, discounts, and flags",
   definition(t) {
-    t.field("packages", {
+    t.nonNull.field("packages", {
       type: "OfferingsPackages",
     });
-    t.list.nonNull.field("addons", {
+    t.nonNull.list.nonNull.field("addons", {
       type: "OfferingsAddon",
     });
-    t.list.nonNull.field("discounts", {
+    t.nonNull.list.nonNull.field("discounts", {
       type: "OfferingsDiscount",
     });
-    t.list.nonNull.field("flags", {
+    t.nonNull.list.nonNull.field("flags", {
       type: "OfferingsFlag",
     });
   },
@@ -460,7 +460,7 @@ export const UserDetailsOfferings = objectType({
 export const UserDetailsOfferingsQuery = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.field("getUserOfferings", {
+    t.field("getUserOfferings", {
       type: "UserDetailsOfferings",
       description: "Get user offerings based on user ID",
       args: {

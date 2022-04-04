@@ -151,10 +151,10 @@ export interface NexusGenObjects {
     user: NexusGenRootTypes['UserData']; // UserData!
   }
   UserDetailsOfferings: { // root type
-    addons?: NexusGenRootTypes['OfferingsAddon'][] | null; // [OfferingsAddon!]
-    discounts?: NexusGenRootTypes['OfferingsDiscount'][] | null; // [OfferingsDiscount!]
-    flags?: NexusGenRootTypes['OfferingsFlag'][] | null; // [OfferingsFlag!]
-    packages?: NexusGenRootTypes['OfferingsPackages'] | null; // OfferingsPackages
+    addons: NexusGenRootTypes['OfferingsAddon'][]; // [OfferingsAddon!]!
+    discounts: NexusGenRootTypes['OfferingsDiscount'][]; // [OfferingsDiscount!]!
+    flags: NexusGenRootTypes['OfferingsFlag'][]; // [OfferingsFlag!]!
+    packages: NexusGenRootTypes['OfferingsPackages']; // OfferingsPackages!
   }
   UserProfile: { // root type
     phone: string; // String!
@@ -232,7 +232,7 @@ export interface NexusGenFieldTypes {
     getSubusers: NexusGenRootTypes['SubusersSearch']; // SubusersSearch!
     getTeammates: NexusGenRootTypes['TeammatesSearch']; // TeammatesSearch!
     getUserInfo: NexusGenRootTypes['UserDetailsInfo']; // UserDetailsInfo!
-    getUserOfferings: NexusGenRootTypes['UserDetailsOfferings']; // UserDetailsOfferings!
+    getUserOfferings: NexusGenRootTypes['UserDetailsOfferings'] | null; // UserDetailsOfferings
     parentAccounts: NexusGenRootTypes['ParentAccount'][]; // [ParentAccount!]!
     parentAccountsMinimal: NexusGenRootTypes['ParentAccountMinimal'][]; // [ParentAccountMinimal!]!
   }
@@ -277,10 +277,10 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['UserData']; // UserData!
   }
   UserDetailsOfferings: { // field return type
-    addons: NexusGenRootTypes['OfferingsAddon'][] | null; // [OfferingsAddon!]
-    discounts: NexusGenRootTypes['OfferingsDiscount'][] | null; // [OfferingsDiscount!]
-    flags: NexusGenRootTypes['OfferingsFlag'][] | null; // [OfferingsFlag!]
-    packages: NexusGenRootTypes['OfferingsPackages'] | null; // OfferingsPackages
+    addons: NexusGenRootTypes['OfferingsAddon'][]; // [OfferingsAddon!]!
+    discounts: NexusGenRootTypes['OfferingsDiscount'][]; // [OfferingsDiscount!]!
+    flags: NexusGenRootTypes['OfferingsFlag'][]; // [OfferingsFlag!]!
+    packages: NexusGenRootTypes['OfferingsPackages']; // OfferingsPackages!
   }
   UserProfile: { // field return type
     phone: string; // String!

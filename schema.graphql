@@ -101,7 +101,7 @@ type Query {
   getUserInfo(userId: Int!): UserDetailsInfo!
 
   """Get user offerings based on user ID"""
-  getUserOfferings(userId: Int!): UserDetailsOfferings!
+  getUserOfferings(userId: Int!): UserDetailsOfferings
   parentAccounts(email: String, userId: Int, username: String): [ParentAccount!]!
   parentAccountsMinimal: [ParentAccountMinimal!]!
 }
@@ -194,10 +194,10 @@ type UserDetailsInfo {
 
 """User details offerings such as packages, addons, discounts, and flags"""
 type UserDetailsOfferings {
-  addons: [OfferingsAddon!]
-  discounts: [OfferingsDiscount!]
-  flags: [OfferingsFlag!]
-  packages: OfferingsPackages
+  addons: [OfferingsAddon!]!
+  discounts: [OfferingsDiscount!]!
+  flags: [OfferingsFlag!]!
+  packages: OfferingsPackages!
 }
 
 """User profile info such as phone and website part of user_profile table"""
