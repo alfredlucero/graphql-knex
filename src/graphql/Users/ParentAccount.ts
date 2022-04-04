@@ -442,16 +442,16 @@ export const UserDetailsOfferings = objectType({
   description:
     "User details offerings such as packages, addons, discounts, and flags",
   definition(t) {
-    t.nonNull.field("packages", {
+    t.field("packages", {
       type: "OfferingsPackages",
     });
-    t.nonNull.list.nonNull.field("addons", {
+    t.list.nonNull.field("addons", {
       type: "OfferingsAddon",
     });
-    t.nonNull.list.nonNull.field("discounts", {
+    t.list.nonNull.field("discounts", {
       type: "OfferingsDiscount",
     });
-    t.nonNull.list.nonNull.field("flags", {
+    t.list.nonNull.field("flags", {
       type: "OfferingsFlag",
     });
   },

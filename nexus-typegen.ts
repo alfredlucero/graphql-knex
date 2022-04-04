@@ -151,10 +151,10 @@ export interface NexusGenObjects {
     user: NexusGenRootTypes['UserData']; // UserData!
   }
   UserDetailsOfferings: { // root type
-    addons: NexusGenRootTypes['OfferingsAddon'][]; // [OfferingsAddon!]!
-    discounts: NexusGenRootTypes['OfferingsDiscount'][]; // [OfferingsDiscount!]!
-    flags: NexusGenRootTypes['OfferingsFlag'][]; // [OfferingsFlag!]!
-    packages: NexusGenRootTypes['OfferingsPackages']; // OfferingsPackages!
+    addons?: NexusGenRootTypes['OfferingsAddon'][] | null; // [OfferingsAddon!]
+    discounts?: NexusGenRootTypes['OfferingsDiscount'][] | null; // [OfferingsDiscount!]
+    flags?: NexusGenRootTypes['OfferingsFlag'][] | null; // [OfferingsFlag!]
+    packages?: NexusGenRootTypes['OfferingsPackages'] | null; // OfferingsPackages
   }
   UserProfile: { // root type
     phone: string; // String!
@@ -277,10 +277,10 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['UserData']; // UserData!
   }
   UserDetailsOfferings: { // field return type
-    addons: NexusGenRootTypes['OfferingsAddon'][]; // [OfferingsAddon!]!
-    discounts: NexusGenRootTypes['OfferingsDiscount'][]; // [OfferingsDiscount!]!
-    flags: NexusGenRootTypes['OfferingsFlag'][]; // [OfferingsFlag!]!
-    packages: NexusGenRootTypes['OfferingsPackages']; // OfferingsPackages!
+    addons: NexusGenRootTypes['OfferingsAddon'][] | null; // [OfferingsAddon!]
+    discounts: NexusGenRootTypes['OfferingsDiscount'][] | null; // [OfferingsDiscount!]
+    flags: NexusGenRootTypes['OfferingsFlag'][] | null; // [OfferingsFlag!]
+    packages: NexusGenRootTypes['OfferingsPackages'] | null; // OfferingsPackages
   }
   UserProfile: { // field return type
     phone: string; // String!
