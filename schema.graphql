@@ -178,6 +178,7 @@ type TeammatesSearchResult {
 
 """User data such as username and email part of user table"""
 type UserData {
+  createdAt: String
   email: String!
   isActive: Boolean!
   resellerId: Int

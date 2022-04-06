@@ -139,6 +139,7 @@ export interface NexusGenObjects {
     pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
   }
   UserData: { // root type
+    createdAt?: string | null; // String
     email: string; // String!
     isActive: boolean; // Boolean!
     resellerId?: number | null; // Int
@@ -265,6 +266,7 @@ export interface NexusGenFieldTypes {
     pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
   }
   UserData: { // field return type
+    createdAt: string | null; // String
     email: string; // String!
     isActive: boolean; // Boolean!
     resellerId: number | null; // Int
@@ -381,6 +383,7 @@ export interface NexusGenFieldTypeNames {
     pageInfo: 'PageInfo'
   }
   UserData: { // field return type name
+    createdAt: 'String'
     email: 'String'
     isActive: 'Boolean'
     resellerId: 'Int'

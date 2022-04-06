@@ -361,6 +361,7 @@ export const UserData = objectType({
     t.nonNull.string("username");
     t.nonNull.string("email");
     t.nonNull.boolean("isActive");
+    t.string("createdAt");
     t.int("resellerId");
   },
 });
